@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Zeff | The Vortex</title>
+    <title>The Vortex | Zeff</title>
     
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -156,7 +156,7 @@
 
         .profile-info {
             text-align: center;
-            margin-bottom: 28px;
+            margin-bottom: 20px;
         }
 
         .name {
@@ -189,6 +189,43 @@
         .bio i {
             color: #c084fc;
             margin: 0 6px;
+        }
+
+        /* INFO ADDITIONAL - Zeff Hanya Pengguna AI Biasa */
+        .info-ai {
+            text-align: center;
+            margin-bottom: 28px;
+            padding: 10px 16px;
+        }
+
+        .info-badge {
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.2), rgba(168, 85, 247, 0.2));
+            border: 1px solid rgba(124, 58, 237, 0.4);
+            border-radius: 40px;
+            padding: 10px 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            backdrop-filter: blur(8px);
+            transition: all 0.2s;
+        }
+
+        .info-badge:hover {
+            border-color: #7c3aed;
+            background: rgba(124, 58, 237, 0.3);
+            transform: scale(1.02);
+        }
+
+        .info-badge i {
+            font-size: 1.1rem;
+            color: #c084fc;
+        }
+
+        .info-badge span {
+            font-size: 0.85rem;
+            color: #c4b5fd;
+            font-weight: 500;
+            letter-spacing: 0.3px;
         }
 
         .date-menu {
@@ -224,6 +261,10 @@
             justify-content: center;
             gap: 10px;
             font-weight: 600;
+        }
+
+        .day-label i {
+            font-size: 1rem;
         }
 
         .day-name {
@@ -470,6 +511,9 @@
             .karya-btn .btn-left span {
                 font-size: 0.85rem;
             }
+            .info-badge span {
+                font-size: 0.75rem;
+            }
         }
 
         video::-webkit-media-controls {
@@ -516,9 +560,16 @@
                 <h1 class="name">𝐙𝐄𝐅𝐅</h1>
                 <p class="bio">
                     <i class="fas fa-star"></i> 
-                    𝙿𝚛𝚘𝚓𝚎𝚌𝚝 𝚉𝚎𝚏𝚏
+                    𝙿𝚛𝚘𝚓𝚎𝚌𝚝 𝙱𝚢 𝚉𝚎𝚏𝚏
                     <i class="fas fa-star"></i>
                 </p>
+            </div>
+
+            <!-- INFO AI - Zeff Hanya Pengguna AI Biasa -->
+            <div class="info-ai">
+                <div class="info-badge">
+                    <span>Zeff Hanya Pengguna AI Biasa</s>
+                </div>
             </div>
 
             <!-- DATE MENU -->
@@ -538,10 +589,10 @@
                 </div>
             </div>
 
-            <!-- LINK KARYA SECTION - OTOMATIS DARI data.txt (isi link saja) -->
+            <!-- LINK KARYA SECTION - OTOMATIS DARI data.txt -->
             <div class="karya-section">
                 <div class="karya-header">
-                    <i class="fas fa-paintbrush"></i> LINK KARYA BY ZEFF
+                    <i class="fas fa-paintbrush"></i> KARYA ZEFF
                     <i class="fas fa-link"></i>
                 </div>
                 <div id="linksContainer" class="links-container">
@@ -551,7 +602,7 @@
                     </div>
                 </div>
                 <div class="info-text">
-                    <i class="fas fa-info-circle"></i> Klik tombol untuk membuka link karya
+                    <i class="fas fa-info-circle"></i> Klik tombol untuk membuka link karya buatan zeff
                 </div>
             </div>
 
@@ -662,7 +713,6 @@
                         url = 'https://' + url;
                     }
                     
-                    // Cek apakah URL valid (minimal ada titik atau format URL)
                     if (url.length > 5) {
                         links.push(url);
                     }
@@ -672,7 +722,7 @@
                     container.innerHTML = `
                         <div class="error-links">
                             <i class="fas fa-exclamation-triangle"></i>
-                            <p>Belum ada link karya vortex</p>
+                            <p>Belum ada link karya</p>
                             <small style="display:block;margin-top:8px;">Silakan isi file <strong>data.txt</strong> dengan link-link karya Anda</small>
                             <small style="display:block;margin-top:12px;color:#a78bfa;">
                                 <i class="fas fa-info-circle"></i> Format: satu baris = satu link
@@ -682,7 +732,6 @@
                     return;
                 }
                 
-                // Ikon untuk setiap tombol (variasi)
                 const icons = ['fa-file-alt', 'fa-code', 'fa-image', 'fa-video', 'fa-music',
                               'fa-palette', 'fa-camera', 'fa-globe', 'fa-cloud', 'fa-database',
                               'fa-folder-open', 'fa-link', 'fa-paper-plane', 'fa-rocket', 'fa-star'];
@@ -690,19 +739,8 @@
                 container.innerHTML = '';
                 
                 links.forEach((url, index) => {
-                    // Nama tombol: "Link Karya 1", "Link Karya 2", dst
                     const buttonNumber = index + 1;
-                    // Pilih icon berdasarkan index
                     const iconClass = icons[index % icons.length];
-                    
-                    // Ambil domain dari URL untuk ditampilkan sebagai subtext (opsional)
-                    let domain = '';
-                    try {
-                        const urlObj = new URL(url);
-                        domain = urlObj.hostname;
-                    } catch(e) {
-                        domain = 'link';
-                    }
                     
                     const button = document.createElement('a');
                     button.href = url;
@@ -712,7 +750,7 @@
                     button.innerHTML = `
                         <div class="btn-left">
                             <i class="fas ${iconClass}"></i>
-                            <span>Link Karya Vortex ${buttonNumber}</span>
+                            <span>Link Karya ${buttonNumber}</span>
                         </div>
                         <div class="btn-arrow">
                             <i class="fas fa-arrow-right"></i>
@@ -744,8 +782,8 @@
         // Load link saat halaman dimuat
         loadLinks();
         
-        // Reload setiap 30 detik (jika file data.txt diupdate)
+        // Reload setiap 30 detik
         setInterval(loadLinks, 30000);
     </script>
 </body>
-  </html>
+</html>
