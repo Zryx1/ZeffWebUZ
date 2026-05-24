@@ -75,6 +75,7 @@
             box-shadow: 0 30px 50px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(124, 58, 237, 0.4) inset;
         }
 
+        /* VIDEO SECTION WITH SOUND BUTTON */
         .video-section {
             width: 100%;
             aspect-ratio: 16/9;
@@ -124,6 +125,58 @@
             color: white;
             font-size: 2.8rem;
             text-shadow: 0 2px 8px black;
+        }
+
+        /* SOUND BUTTON */
+        .sound-btn {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(124, 58, 237, 0.6);
+            border-radius: 40px;
+            padding: 8px 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.2s ease;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #c4b5fd;
+        }
+
+        .sound-btn:hover {
+            background: #7c3aed;
+            border-color: #c084fc;
+            color: white;
+            transform: scale(1.02);
+        }
+
+        .sound-btn i {
+            font-size: 0.9rem;
+        }
+
+        .sound-btn span {
+            font-size: 0.7rem;
+            letter-spacing: 0.5px;
+        }
+
+        .muted-indicator {
+            position: absolute;
+            bottom: 12px;
+            left: 12px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 20px;
+            padding: 4px 8px;
+            font-size: 0.6rem;
+            color: #f87171;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            pointer-events: none;
         }
 
         .profile-photo-wrapper {
@@ -191,7 +244,7 @@
             margin: 0 6px;
         }
 
-        /* INFO ADDITIONAL - Zeff Hanya Pengguna AI Biasa */
+        /* INFO ADDITIONAL - Dengan Bulan Sabit */
         .info-ai {
             text-align: center;
             margin-bottom: 28px;
@@ -317,8 +370,8 @@
             background: rgba(0,0,0,0.2);
         }
 
-        /* LINK KARYA SECTION */
-        .karya-section {
+        /* LINK WEB SECTION */
+        .web-section {
             background: rgba(26, 23, 40, 0.65);
             backdrop-filter: blur(12px);
             border: 1px solid rgba(124, 58, 237, 0.5);
@@ -328,13 +381,13 @@
             transition: all 0.2s;
         }
 
-        .karya-section:hover {
+        .web-section:hover {
             border-color: #7c3aed;
             background: rgba(26, 23, 40, 0.8);
             box-shadow: 0 8px 20px rgba(0,0,0,0.3);
         }
 
-        .karya-header {
+        .web-header {
             display: flex;
             align-items: center;
             justify-content: center;
@@ -347,7 +400,7 @@
             font-weight: 600;
         }
 
-        .karya-header i {
+        .web-header i {
             font-size: 1rem;
         }
 
@@ -357,7 +410,7 @@
             gap: 12px;
         }
 
-        .karya-btn {
+        .web-btn {
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -376,20 +429,20 @@
             width: 100%;
         }
 
-        .karya-btn .btn-left {
+        .web-btn .btn-left {
             display: flex;
             align-items: center;
             gap: 12px;
             flex: 1;
         }
 
-        .karya-btn .btn-left i {
+        .web-btn .btn-left i {
             font-size: 1.2rem;
             width: 24px;
             text-align: center;
         }
 
-        .karya-btn .btn-left span {
+        .web-btn .btn-left span {
             font-weight: 600;
             word-break: break-word;
             overflow: hidden;
@@ -397,19 +450,19 @@
             white-space: nowrap;
         }
 
-        .karya-btn .btn-arrow {
+        .web-btn .btn-arrow {
             opacity: 0.7;
             transition: transform 0.2s;
             font-size: 0.9rem;
         }
 
-        .karya-btn:hover {
+        .web-btn:hover {
             transform: translateX(5px);
             background: linear-gradient(105deg, #8b5cf6, #c084fc);
             box-shadow: 0 8px 20px rgba(124, 58, 237, 0.5);
         }
 
-        .karya-btn:hover .btn-arrow {
+        .web-btn:hover .btn-arrow {
             transform: translateX(4px);
             opacity: 1;
         }
@@ -504,15 +557,21 @@
                 padding: 12px 14px;
                 min-width: 85px;
             }
-            .karya-btn {
+            .web-btn {
                 padding: 12px 16px;
                 font-size: 0.9rem;
             }
-            .karya-btn .btn-left span {
+            .web-btn .btn-left span {
                 font-size: 0.85rem;
             }
             .info-badge span {
                 font-size: 0.75rem;
+            }
+            .sound-btn {
+                padding: 5px 10px;
+            }
+            .sound-btn span {
+                display: none;
             }
         }
 
@@ -536,13 +595,21 @@
 
     <div class="container">
         <div class="profile-card">
-            <!-- VIDEO SECTION -->
+            <!-- VIDEO SECTION WITH SOUND BUTTON -->
             <div class="video-section" id="videoSection">
                 <video id="profileVideo" loop muted playsinline preload="auto">
                     <source src="https://files.catbox.moe/lwuo2r.mp4" type="video/mp4">
                 </video>
                 <div class="video-overlay">
                     <i class="fas fa-play" id="playIcon"></i>
+                </div>
+                <button class="sound-btn" id="soundBtn">
+                    <i class="fas fa-volume-mute" id="soundIcon"></i>
+                    <span id="soundText">Aktifkan Suara</span>
+                </button>
+                <div class="muted-indicator" id="mutedIndicator">
+                    <i class="fas fa-volume-off"></i>
+                    <span>Muted</span>
                 </div>
             </div>
 
@@ -565,10 +632,12 @@
                 </p>
             </div>
 
-            <!-- INFO AI - Zeff Hanya Pengguna AI Biasa -->
+            <!-- INFO AI - Dengan Bulan Sabit -->
             <div class="info-ai">
                 <div class="info-badge">
-                    <span>Zeff Hanya Pengguna AI Biasa Dia Hanya Memikirkan Ide</s>
+                    <i class="fas fa-moon"></i>
+                    <span>Zeff Hanya Pengguna AI Biasa - Dia Hanya Memikirkan Ide</span>
+                    <i class="fas fa-moon"></i>
                 </div>
             </div>
 
@@ -589,11 +658,11 @@
                 </div>
             </div>
 
-            <!-- LINK KARYA SECTION - OTOMATIS DARI data.txt -->
-            <div class="karya-section">
-                <div class="karya-header">
-                    <i class="fas fa-paintbrush"></i> WEB BY ZEFF
-                    <i class="fas fa-link"></i>
+            <!-- LINK WEB SECTION -->
+            <div class="web-section">
+                <div class="web-header">
+                    <i class="fas fa-globe"></i> WEB BY ZEFF
+                    <i class="fas fa-code"></i>
                 </div>
                 <div id="linksContainer" class="links-container">
                     <div class="loading-links">
@@ -602,7 +671,7 @@
                     </div>
                 </div>
                 <div class="info-text">
-                    <i class="fas fa-info-circle"></i> Klik tombol untuk membuka link web buatan zeff
+                    <i class="fas fa-info-circle"></i> Klik tombol untuk membuka link web buatan Zeff
                 </div>
             </div>
 
@@ -626,10 +695,14 @@
             });
         }
 
-        // ========== VIDEO PREVIEW CONTROL ==========
+        // ========== VIDEO PREVIEW CONTROL + SOUND BUTTON ==========
         const video = document.getElementById('profileVideo');
         const videoSection = document.getElementById('videoSection');
         const playIcon = document.getElementById('playIcon');
+        const soundBtn = document.getElementById('soundBtn');
+        const soundIcon = document.getElementById('soundIcon');
+        const soundText = document.getElementById('soundText');
+        const mutedIndicator = document.getElementById('mutedIndicator');
 
         const autoPlayPreview = () => {
             video.play().then(() => {
@@ -641,6 +714,7 @@
         autoPlayPreview();
 
         videoSection.addEventListener('click', (e) => {
+            if (e.target.closest('.sound-btn')) return;
             e.stopPropagation();
             if (video.paused) {
                 video.play();
@@ -664,6 +738,44 @@
             `;
         });
 
+        function enableSound() {
+            video.muted = false;
+            soundIcon.className = 'fas fa-volume-up';
+            soundText.textContent = 'Suara Aktif';
+            if (mutedIndicator) mutedIndicator.style.display = 'none';
+            soundBtn.style.background = '#7c3aed';
+            soundBtn.style.borderColor = '#c084fc';
+            soundBtn.style.color = 'white';
+            localStorage.setItem('videoSoundEnabled', 'true');
+        }
+
+        function disableSound() {
+            video.muted = true;
+            soundIcon.className = 'fas fa-volume-mute';
+            soundText.textContent = 'Aktifkan Suara';
+            if (mutedIndicator) mutedIndicator.style.display = 'flex';
+            soundBtn.style.background = 'rgba(0, 0, 0, 0.7)';
+            soundBtn.style.borderColor = 'rgba(124, 58, 237, 0.6)';
+            soundBtn.style.color = '#c4b5fd';
+            localStorage.setItem('videoSoundEnabled', 'false');
+        }
+
+        soundBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (video.muted) {
+                enableSound();
+            } else {
+                disableSound();
+            }
+        });
+
+        const soundEnabled = localStorage.getItem('videoSoundEnabled');
+        if (soundEnabled === 'true') {
+            enableSound();
+        } else {
+            disableSound();
+        }
+
         // ========== UPDATE TANGGAL ==========
         function updateDateTime() {
             const now = new Date();
@@ -684,7 +796,7 @@
         updateDateTime();
         setInterval(updateDateTime, 1000);
 
-        // ========== FUNGSI MEMBACA data.txt (ISI LINK SAJA) ==========
+        // ========== FUNGSI MEMBACA data.txt ==========
         async function loadLinks() {
             const container = document.getElementById('linksContainer');
             
@@ -697,17 +809,13 @@
                 }
                 
                 const text = await response.text();
-                
-                // Parsing data.txt - setiap baris adalah link
                 const lines = text.split(/\r?\n/);
                 const links = [];
                 
                 for (let line of lines) {
                     line = line.trim();
-                    // Skip baris kosong dan komentar
                     if (line === '' || line.startsWith('#')) continue;
                     
-                    // Validasi URL sederhana
                     let url = line;
                     if (!url.startsWith('http://') && !url.startsWith('https://')) {
                         url = 'https://' + url;
@@ -722,8 +830,8 @@
                     container.innerHTML = `
                         <div class="error-links">
                             <i class="fas fa-exclamation-triangle"></i>
-                            <p>Belum ada link karya</p>
-                            <small style="display:block;margin-top:8px;">Silakan isi file <strong>data.txt</strong> dengan link-link karya Anda</small>
+                            <p>Belum ada link web</p>
+                            <small style="display:block;margin-top:8px;">Silakan isi file <strong>data.txt</strong> dengan link-link web buatan Zeff</small>
                             <small style="display:block;margin-top:12px;color:#a78bfa;">
                                 <i class="fas fa-info-circle"></i> Format: satu baris = satu link
                             </small>
@@ -732,8 +840,8 @@
                     return;
                 }
                 
-                const icons = ['fa-file-alt', 'fa-code', 'fa-image', 'fa-video', 'fa-music',
-                              'fa-palette', 'fa-camera', 'fa-globe', 'fa-cloud', 'fa-database',
+                const icons = ['fa-globe', 'fa-code', 'fa-window-maximize', 'fa-browser', 'fa-laptop-code',
+                              'fa-file-code', 'fa-server', 'fa-cloud', 'fa-database', 'fa-network-wired',
                               'fa-folder-open', 'fa-link', 'fa-paper-plane', 'fa-rocket', 'fa-star'];
                 
                 container.innerHTML = '';
@@ -746,11 +854,11 @@
                     button.href = url;
                     button.target = '_blank';
                     button.rel = 'noopener noreferrer';
-                    button.className = 'karya-btn';
+                    button.className = 'web-btn';
                     button.innerHTML = `
                         <div class="btn-left">
                             <i class="fas ${iconClass}"></i>
-                            <span>Link Karya ${buttonNumber}</span>
+                            <span>Web ${buttonNumber}</span>
                         </div>
                         <div class="btn-arrow">
                             <i class="fas fa-arrow-right"></i>
@@ -760,29 +868,26 @@
                     container.appendChild(button);
                 });
                 
-                console.log(`Berhasil memuat ${links.length} link karya dari data.txt`);
+                console.log(`Berhasil memuat ${links.length} link web dari data.txt`);
                 
             } catch (error) {
                 console.error('Gagal memuat data.txt:', error);
                 container.innerHTML = `
                     <div class="error-links">
                         <i class="fas fa-file-alt"></i>
-                        <p>Gagal memuat link karya</p>
+                        <p>Gagal memuat link web</p>
                         <small style="display:block;margin-top:8px;">
                             Pastikan file <strong>data.txt</strong> tersedia di folder yang sama
                         </small>
                         <small style="display:block;margin-top:12px;color:#a78bfa;">
-                            <i class="fas fa-info-circle"></i> Isi data.txt dengan link karya (satu baris satu link)
+                            <i class="fas fa-info-circle"></i> Isi data.txt dengan link web (satu baris satu link)
                         </small>
                     </div>
                 `;
             }
         }
         
-        // Load link saat halaman dimuat
         loadLinks();
-        
-        // Reload setiap 30 detik
         setInterval(loadLinks, 30000);
     </script>
 </body>
