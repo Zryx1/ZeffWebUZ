@@ -29,7 +29,7 @@
             background: #0a0612;
         }
 
-        /* ========== BACKGROUND VIDEO BUATAN SENDIRI (HALUS & RINGAN) ========== */
+        /* ========== BACKGROUND SUPER SMOOTH (CSS SAJA, TIDAK BERAT) ========== */
         .custom-bg {
             position: fixed;
             top: 0;
@@ -37,112 +37,100 @@
             width: 100%;
             height: 100%;
             z-index: 0;
-            overflow: hidden;
-            background: linear-gradient(135deg, #0a0612 0%, #140b1f 25%, #1a1230 50%, #140b1f 75%, #0a0612 100%);
+            background: linear-gradient(125deg, #0a0612 0%, #140b1f 30%, #1a1230 60%, #0f0b1a 100%);
             background-size: 200% 200%;
-            animation: bgShift 8s ease infinite;
+            animation: smoothShift 12s ease-in-out infinite;
         }
 
-        @keyframes bgShift {
+        @keyframes smoothShift {
             0% { background-position: 0% 0%; }
             50% { background-position: 100% 100%; }
             100% { background-position: 0% 0%; }
         }
 
-        /* Efek glow bergerak */
-        .glow-1 {
+        /* Aurora effect - sangat halus */
+        .aurora {
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(124, 58, 237, 0.15) 0%, rgba(124, 58, 237, 0) 60%);
-            animation: rotateSlow 25s linear infinite;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at 30% 40%, rgba(124, 58, 237, 0.08) 0%, transparent 60%),
+                        radial-gradient(ellipse at 70% 60%, rgba(168, 85, 247, 0.06) 0%, transparent 60%);
+            animation: auroraMove 15s ease-in-out infinite;
+            pointer-events: none;
         }
 
-        .glow-2 {
-            position: absolute;
-            bottom: -50%;
-            right: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(168, 85, 247, 0.1) 0%, rgba(168, 85, 247, 0) 60%);
-            animation: rotateSlowReverse 30s linear infinite;
+        @keyframes auroraMove {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.05); }
         }
 
-        @keyframes rotateSlow {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        @keyframes rotateSlowReverse {
-            from { transform: rotate(360deg); }
-            to { transform: rotate(0deg); }
-        }
-
-        /* Lingkaran berputar halus */
-        .circle-ring {
+        /* Lingkaran berputar HALUS */
+        .smooth-ring {
             position: absolute;
             top: 50%;
             left: 50%;
-            width: 80%;
-            height: 80%;
+            width: 70%;
+            height: 70%;
             transform: translate(-50%, -50%);
             border-radius: 50%;
-            border: 1px solid rgba(124, 58, 237, 0.2);
-            animation: circleRotate 20s linear infinite;
+            background: transparent;
+            box-shadow: 0 0 0 1px rgba(124, 58, 237, 0.15), 0 0 0 3px rgba(124, 58, 237, 0.05);
+            animation: smoothRotate 20s linear infinite;
         }
 
-        .circle-ring::before {
+        .smooth-ring::before {
             content: '';
             position: absolute;
-            top: -5px;
-            left: 50%;
-            width: 10px;
-            height: 10px;
-            background: #7c3aed;
-            border-radius: 50%;
-            transform: translateX(-50%);
-            box-shadow: 0 0 15px #7c3aed;
-        }
-
-        .circle-ring-2 {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 55%;
-            height: 55%;
-            transform: translate(-50%, -50%);
-            border-radius: 50%;
-            border: 1px solid rgba(168, 85, 247, 0.3);
-            animation: circleRotateReverse 15s linear infinite;
-        }
-
-        .circle-ring-2::before {
-            content: '';
-            position: absolute;
-            bottom: -5px;
+            top: -4px;
             left: 50%;
             width: 8px;
             height: 8px;
+            background: #7c3aed;
+            border-radius: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 12px #7c3aed;
+        }
+
+        .smooth-ring-2 {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 45%;
+            height: 45%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            background: transparent;
+            box-shadow: 0 0 0 1px rgba(168, 85, 247, 0.2);
+            animation: smoothRotateReverse 15s linear infinite;
+        }
+
+        .smooth-ring-2::before {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 50%;
+            width: 6px;
+            height: 6px;
             background: #a855f7;
             border-radius: 50%;
             transform: translateX(-50%);
-            box-shadow: 0 0 12px #a855f7;
+            box-shadow: 0 0 10px #a855f7;
         }
 
-        @keyframes circleRotate {
+        @keyframes smoothRotate {
             from { transform: translate(-50%, -50%) rotate(0deg); }
             to { transform: translate(-50%, -50%) rotate(360deg); }
         }
 
-        @keyframes circleRotateReverse {
+        @keyframes smoothRotateReverse {
             from { transform: translate(-50%, -50%) rotate(360deg); }
             to { transform: translate(-50%, -50%) rotate(0deg); }
         }
 
-        /* Partikel sederhana (tidak berlebihan) */
-        .particles {
+        /* Bintang lembut */
+        .stars-smooth {
             position: absolute;
             top: 0;
             left: 0;
@@ -151,28 +139,26 @@
             pointer-events: none;
         }
 
-        .particle {
+        .star-smooth {
             position: absolute;
-            background: rgba(124, 58, 237, 0.4);
+            background: white;
             border-radius: 50%;
-            width: 2px;
-            height: 2px;
-            animation: float 8s ease-in-out infinite;
+            opacity: 0;
+            animation: gentleTwinkle 4s ease-in-out infinite;
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0) translateX(0); opacity: 0; }
-            50% { transform: translateY(-20px) translateX(10px); opacity: 0.6; }
+        @keyframes gentleTwinkle {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 0.4; }
         }
 
-        /* Overlay halus */
         .bg-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at center, transparent 0%, rgba(8, 5, 16, 0.5) 100%);
+            background: radial-gradient(circle at center, transparent 0%, rgba(8, 5, 16, 0.4) 100%);
             z-index: 1;
             pointer-events: none;
         }
@@ -547,22 +533,27 @@
             align-items: center;
             gap: 12px;
             flex: 1;
+            overflow: hidden;
         }
 
         .web-btn .btn-left i {
             font-size: 1.2rem;
             width: 24px;
             text-align: center;
+            flex-shrink: 0;
         }
 
         .web-btn .btn-left span {
             font-weight: 600;
             white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .web-btn .btn-arrow {
             opacity: 0.7;
             transition: transform 0.2s;
+            flex-shrink: 0;
         }
 
         .web-btn:hover {
@@ -647,7 +638,7 @@
             .date-year { font-size: 1.3rem; padding: 5px 12px; }
             .date-box { padding: 12px 14px; min-width: 85px; }
             .web-btn { padding: 12px 16px; font-size: 0.9rem; }
-            .web-btn .btn-left span { font-size: 0.85rem; white-space: normal; }
+            .web-btn .btn-left span { font-size: 0.85rem; white-space: normal; word-break: break-word; }
             .info-badge span { font-size: 0.75rem; }
             .sound-btn span { display: none; }
         }
@@ -659,13 +650,12 @@
 </head>
 <body>
 
-    <!-- ========== BACKGROUND HALUS & RINGAN ========== -->
+    <!-- ========== BACKGROUND SUPER SMOOTH ========== -->
     <div class="custom-bg">
-        <div class="glow-1"></div>
-        <div class="glow-2"></div>
-        <div class="circle-ring"></div>
-        <div class="circle-ring-2"></div>
-        <div class="particles" id="particles"></div>
+        <div class="aurora"></div>
+        <div class="smooth-ring"></div>
+        <div class="smooth-ring-2"></div>
+        <div class="stars-smooth" id="starsSmooth"></div>
     </div>
     <div class="bg-overlay"></div>
 
@@ -756,25 +746,26 @@
     </div>
 
     <script>
-        // ========== MEMBUAT PARTIKEL SEDERHANA ==========
-        function createParticles() {
-            const container = document.getElementById('particles');
+        // ========== MEMBUAT BINTANG (SMOOTH, TIDAK BERAT) ==========
+        function createStarsSmooth() {
+            const container = document.getElementById('starsSmooth');
             if (!container) return;
             
-            for (let i = 0; i < 60; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.top = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 8 + 's';
-                particle.style.animationDuration = (Math.random() * 6 + 4) + 's';
-                particle.style.width = (Math.random() * 3 + 1) + 'px';
-                particle.style.height = particle.style.width;
-                container.appendChild(particle);
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.className = 'star-smooth';
+                const size = Math.random() * 2 + 1;
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 4 + 's';
+                star.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                container.appendChild(star);
             }
         }
         
-        createParticles();
+        createStarsSmooth();
 
         // ========== VIDEO PREVIEW CONTROL ==========
         const video = document.getElementById('profileVideo');
@@ -874,7 +865,7 @@
         updateDateTime();
         setInterval(updateDateTime, 1000);
 
-        // ========== MEMBACA data.txt ==========
+        // ========== MEMBACA data.txt DENGAN FORMAT NAMA|URL ==========
         async function loadLinks() {
             const container = document.getElementById('linksContainer');
             try {
@@ -889,39 +880,96 @@
                 for (let line of lines) {
                     line = line.trim();
                     if (line === '' || line.startsWith('#')) continue;
-                    let url = line;
-                    if (!url.startsWith('http://') && !url.startsWith('https://')) {
-                        url = 'https://' + url;
+                    
+                    // Format: Nama Tombol|URL
+                    const separatorIndex = line.indexOf('|');
+                    if (separatorIndex === -1) {
+                        console.warn(`Baris tidak valid (harus format Nama|URL): ${line}`);
+                        continue;
                     }
-                    if (url.length > 5) links.push(url);
+                    
+                    const name = line.substring(0, separatorIndex).trim();
+                    let url = line.substring(separatorIndex + 1).trim();
+                    
+                    if (name && url) {
+                        if (!url.startsWith('http://') && !url.startsWith('https://')) {
+                            url = 'https://' + url;
+                        }
+                        links.push({ name, url });
+                    }
                 }
                 
                 if (links.length === 0) {
-                    container.innerHTML = `<div class="error-links"><i class="fas fa-exclamation-triangle"></i><p>Belum ada link web</p><small>Isi file data.txt dengan link web</small></div>`;
+                    container.innerHTML = `
+                        <div class="error-links">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <p>Belum ada link web</p>
+                            <small style="display:block;margin-top:8px;">Format data.txt: Nama Tombol|URL</small>
+                            <small style="display:block;margin-top:4px;">Contoh: YouTube|https://youtube.com/@zeff</small>
+                        </div>
+                    `;
                     return;
                 }
                 
-                const icons = ['fa-globe', 'fa-code', 'fa-window-maximize', 'fa-browser', 'fa-laptop-code', 'fa-file-code', 'fa-server', 'fa-cloud', 'fa-rocket', 'fa-star'];
+                const icons = ['fa-globe', 'fa-code', 'fa-window-maximize', 'fa-browser', 'fa-laptop-code', 
+                              'fa-file-code', 'fa-server', 'fa-cloud', 'fa-rocket', 'fa-star', 
+                              'fa-fire', 'fa-crown', 'fa-gem', 'fa-infinity'];
+                
                 container.innerHTML = '';
                 
-                links.forEach((url, index) => {
+                links.forEach((link, index) => {
+                    // Pilih icon berdasarkan nama (biar lebih keren)
+                    let iconClass = icons[index % icons.length];
+                    const lowerName = link.name.toLowerCase();
+                    if (lowerName.includes('youtube') || lowerName.includes('yt')) iconClass = 'fa-youtube';
+                    else if (lowerName.includes('instagram') || lowerName.includes('ig')) iconClass = 'fa-instagram';
+                    else if (lowerName.includes('tiktok')) iconClass = 'fa-tiktok';
+                    else if (lowerName.includes('twitter')) iconClass = 'fa-twitter';
+                    else if (lowerName.includes('facebook')) iconClass = 'fa-facebook';
+                    else if (lowerName.includes('whatsapp')) iconClass = 'fa-whatsapp';
+                    else if (lowerName.includes('telegram')) iconClass = 'fa-telegram';
+                    else if (lowerName.includes('github')) iconClass = 'fa-github';
+                    else if (lowerName.includes('spotify')) iconClass = 'fa-spotify';
+                    
                     const button = document.createElement('a');
-                    button.href = url;
+                    button.href = link.url;
                     button.target = '_blank';
                     button.rel = 'noopener noreferrer';
                     button.className = 'web-btn';
                     button.innerHTML = `
                         <div class="btn-left">
-                            <i class="fas ${icons[index % icons.length]}"></i>
-                            <span>Web ${index + 1}</span>
+                            <i class="fab ${iconClass}"></i>
+                            <span>${escapeHtml(link.name)}</span>
                         </div>
-                        <div class="btn-arrow"><i class="fas fa-arrow-right"></i></div>
+                        <div class="btn-arrow">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
                     `;
                     container.appendChild(button);
                 });
+                
+                console.log(`Berhasil memuat ${links.length} link dari data.txt`);
+                
             } catch (error) {
-                container.innerHTML = `<div class="error-links"><i class="fas fa-file-alt"></i><p>Gagal memuat link web</p><small>Pastikan file data.txt tersedia</small></div>`;
+                console.error('Gagal memuat data.txt:', error);
+                container.innerHTML = `
+                    <div class="error-links">
+                        <i class="fas fa-file-alt"></i>
+                        <p>Gagal memuat link web</p>
+                        <small style="display:block;margin-top:8px;">Pastikan file <strong>data.txt</strong> tersedia</small>
+                        <small style="display:block;margin-top:4px;">Format: Nama Tombol|URL</small>
+                    </div>
+                `;
             }
+        }
+        
+        function escapeHtml(str) {
+            return str.replace(/[&<>]/g, function(m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
+            });
         }
         
         loadLinks();
