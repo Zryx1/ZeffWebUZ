@@ -2,15 +2,17 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>The Vortex | Zeff</title>
-    
-    <!-- Fonts -->
+
+    <!-- Fonts (satu weight range, biar lebih ringan) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
+
     <!-- Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
     <style>
         * {
             margin: 0;
@@ -18,192 +20,135 @@
             box-sizing: border-box;
         }
 
+        html, body {
+            height: 100%;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            position: relative;
+            min-height: 100dvh;
             background: #0a0612;
+            position: relative;
+            overflow-x: hidden;
         }
 
-        /* ========== BACKGROUND SUPER SMOOTH (CSS SAJA, TIDAK BERAT) ========== */
+        /* ========== BACKGROUND RINGAN (statis, tanpa animasi berat) ========== */
         .custom-bg {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            inset: 0;
             z-index: 0;
-            background: linear-gradient(125deg, #0a0612 0%, #140b1f 30%, #1a1230 60%, #0f0b1a 100%);
-            background-size: 200% 200%;
-            animation: smoothShift 12s ease-in-out infinite;
+            background:
+                radial-gradient(ellipse 60% 50% at 25% 20%, rgba(124, 58, 237, 0.18), transparent 60%),
+                radial-gradient(ellipse 55% 45% at 80% 75%, rgba(168, 85, 247, 0.14), transparent 60%),
+                linear-gradient(160deg, #0a0612 0%, #140b1f 45%, #16101f 100%);
         }
 
-        @keyframes smoothShift {
-            0% { background-position: 0% 0%; }
-            50% { background-position: 100% 100%; }
-            100% { background-position: 0% 0%; }
-        }
-
-        /* Aurora effect - sangat halus */
-        .aurora {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(ellipse at 30% 40%, rgba(124, 58, 237, 0.08) 0%, transparent 60%),
-                        radial-gradient(ellipse at 70% 60%, rgba(168, 85, 247, 0.06) 0%, transparent 60%);
-            animation: auroraMove 15s ease-in-out infinite;
-            pointer-events: none;
-        }
-
-        @keyframes auroraMove {
-            0%, 100% { opacity: 0.5; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.05); }
-        }
-
-        /* Lingkaran berputar HALUS */
-        .smooth-ring {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 70%;
-            height: 70%;
-            transform: translate(-50%, -50%);
-            border-radius: 50%;
-            background: transparent;
-            box-shadow: 0 0 0 1px rgba(124, 58, 237, 0.15), 0 0 0 3px rgba(124, 58, 237, 0.05);
-            animation: smoothRotate 20s linear infinite;
-        }
-
-        .smooth-ring::before {
-            content: '';
-            position: absolute;
-            top: -4px;
-            left: 50%;
-            width: 8px;
-            height: 8px;
-            background: #7c3aed;
-            border-radius: 50%;
-            transform: translateX(-50%);
-            box-shadow: 0 0 12px #7c3aed;
-        }
-
-        .smooth-ring-2 {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 45%;
-            height: 45%;
-            transform: translate(-50%, -50%);
-            border-radius: 50%;
-            background: transparent;
-            box-shadow: 0 0 0 1px rgba(168, 85, 247, 0.2);
-            animation: smoothRotateReverse 15s linear infinite;
-        }
-
-        .smooth-ring-2::before {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 50%;
-            width: 6px;
-            height: 6px;
-            background: #a855f7;
-            border-radius: 50%;
-            transform: translateX(-50%);
-            box-shadow: 0 0 10px #a855f7;
-        }
-
-        @keyframes smoothRotate {
-            from { transform: translate(-50%, -50%) rotate(0deg); }
-            to { transform: translate(-50%, -50%) rotate(360deg); }
-        }
-
-        @keyframes smoothRotateReverse {
-            from { transform: translate(-50%, -50%) rotate(360deg); }
-            to { transform: translate(-50%, -50%) rotate(0deg); }
-        }
-
-        /* Bintang lembut */
+        /* Bintang statis dibuat lewat CSS gradient dots, tanpa DOM/JS berat */
         .stars-smooth {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            opacity: 0.5;
+            background-image:
+                radial-gradient(1.5px 1.5px at 20% 30%, #fff, transparent),
+                radial-gradient(1.5px 1.5px at 65% 15%, #fff, transparent),
+                radial-gradient(1px 1px at 85% 40%, #fff, transparent),
+                radial-gradient(1.5px 1.5px at 10% 70%, #fff, transparent),
+                radial-gradient(1px 1px at 40% 85%, #fff, transparent),
+                radial-gradient(1.5px 1.5px at 92% 80%, #fff, transparent),
+                radial-gradient(1px 1px at 55% 55%, #fff, transparent),
+                radial-gradient(1.5px 1.5px at 75% 25%, #fff, transparent);
+            background-repeat: repeat;
+            background-size: 100% 100%;
+            animation: twinkle 6s ease-in-out infinite;
             pointer-events: none;
         }
 
-        .star-smooth {
-            position: absolute;
-            background: white;
-            border-radius: 50%;
-            opacity: 0;
-            animation: gentleTwinkle 4s ease-in-out infinite;
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.35; }
+            50% { opacity: 0.65; }
         }
 
-        @keyframes gentleTwinkle {
-            0%, 100% { opacity: 0; }
-            50% { opacity: 0.4; }
-        }
-
-        .bg-overlay {
+        /* Satu ring dekoratif saja, ringan (hanya transform, no box-shadow animation) */
+        .smooth-ring {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at center, transparent 0%, rgba(8, 5, 16, 0.4) 100%);
-            z-index: 1;
+            top: 50%;
+            left: 50%;
+            width: min(80vw, 640px);
+            height: min(80vw, 640px);
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            border: 1px solid rgba(124, 58, 237, 0.12);
+            z-index: 0;
             pointer-events: none;
         }
 
         .container {
             width: 100%;
-            max-width: 550px;
-            margin: 0 auto;
+            min-height: 100dvh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             position: relative;
             z-index: 2;
+            padding: 0;
         }
 
         .profile-card {
-            background: rgba(19, 17, 28, 0.7);
-            backdrop-filter: blur(16px);
-            border-radius: 48px;
-            padding: 32px 24px;
-            border: 1px solid rgba(124, 58, 237, 0.5);
-            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(124, 58, 237, 0.2) inset;
-            transition: transform 0.2s ease;
+            width: 100%;
+            max-width: 560px;
+            min-height: 100dvh;
+            background: rgba(19, 17, 28, 0.55);
+            backdrop-filter: blur(10px);
+            border-radius: 0;
+            padding: clamp(24px, 6vw, 44px) clamp(18px, 5vw, 36px);
+            border: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
-        .profile-card:hover {
-            border-color: rgba(124, 58, 237, 0.8);
-            box-shadow: 0 30px 50px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(124, 58, 237, 0.4) inset;
+        @media (min-width: 640px) {
+            body {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 24px;
+            }
+            .container {
+                min-height: auto;
+                max-height: 96vh;
+            }
+            .profile-card {
+                min-height: auto;
+                max-height: 96vh;
+                overflow-y: auto;
+                border-radius: 32px;
+                border: 1px solid rgba(124, 58, 237, 0.4);
+                box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+                scrollbar-width: thin;
+                scrollbar-color: rgba(124,58,237,0.5) transparent;
+            }
+            .profile-card::-webkit-scrollbar { width: 6px; }
+            .profile-card::-webkit-scrollbar-thumb { background: rgba(124,58,237,0.5); border-radius: 10px; }
         }
 
         /* VIDEO SECTION */
         .video-section {
             width: 100%;
             aspect-ratio: 16/9;
-            background: #000000aa;
-            border-radius: 28px;
+            background: #000;
+            border-radius: 22px;
             overflow: hidden;
-            margin-bottom: 24px;
+            margin-bottom: 22px;
             border: 2px solid #7c3aed;
             position: relative;
             cursor: pointer;
             box-shadow: 0 10px 25px -5px rgba(0,0,0,0.5);
-            transition: all 0.2s;
         }
 
-        .video-section:hover {
-            border-color: #a855f7;
-            transform: scale(1.01);
+        .video-section:active {
+            transform: scale(0.995);
         }
 
         .video-section video {
@@ -214,18 +159,14 @@
 
         .video-overlay {
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.3);
+            inset: 0;
+            background: rgba(0, 0, 0, 0.25);
             display: flex;
             align-items: center;
             justify-content: center;
             opacity: 0;
             transition: opacity 0.2s ease;
             pointer-events: none;
-            backdrop-filter: blur(4px);
         }
 
         .video-section:hover .video-overlay {
@@ -234,7 +175,7 @@
 
         .video-overlay i {
             color: white;
-            font-size: 2.8rem;
+            font-size: 2.6rem;
             text-shadow: 0 2px 8px black;
         }
 
@@ -242,8 +183,7 @@
             position: absolute;
             bottom: 12px;
             right: 12px;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(8px);
+            background: rgba(0, 0, 0, 0.65);
             border: 1px solid rgba(124, 58, 237, 0.6);
             border-radius: 40px;
             padding: 8px 14px;
@@ -252,7 +192,7 @@
             gap: 8px;
             cursor: pointer;
             z-index: 10;
-            transition: all 0.2s ease;
+            transition: background 0.2s ease, border-color 0.2s ease;
             font-size: 0.8rem;
             font-weight: 500;
             color: #c4b5fd;
@@ -262,17 +202,10 @@
             background: #7c3aed;
             border-color: #c084fc;
             color: white;
-            transform: scale(1.02);
         }
 
-        .sound-btn i {
-            font-size: 0.9rem;
-        }
-
-        .sound-btn span {
-            font-size: 0.7rem;
-            letter-spacing: 0.5px;
-        }
+        .sound-btn i { font-size: 0.9rem; }
+        .sound-btn span { font-size: 0.7rem; letter-spacing: 0.5px; }
 
         .muted-indicator {
             position: absolute;
@@ -292,23 +225,17 @@
         .profile-photo-wrapper {
             display: flex;
             justify-content: center;
-            margin-bottom: 20px;
+            margin-bottom: 18px;
         }
 
         .profile-photo {
-            width: 120px;
-            height: 120px;
+            width: 110px;
+            height: 110px;
             border-radius: 50%;
             overflow: hidden;
             border: 3px solid #7c3aed;
-            box-shadow: 0 0 30px rgba(124, 58, 237, 0.6), 0 5px 15px rgba(0,0,0,0.3);
-            transition: transform 0.2s;
+            box-shadow: 0 0 26px rgba(124, 58, 237, 0.55), 0 5px 15px rgba(0,0,0,0.3);
             background: #1e1a2f;
-        }
-
-        .profile-photo:hover {
-            transform: scale(1.02);
-            border-color: #a78bfa;
         }
 
         .profile-photo img {
@@ -319,16 +246,15 @@
 
         .profile-info {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 18px;
         }
 
         .name {
             color: white;
-            font-size: 2.3rem;
+            font-size: clamp(1.9rem, 6vw, 2.4rem);
             font-weight: 800;
             margin-bottom: 8px;
             letter-spacing: -0.5px;
-            text-shadow: 0 2px 5px rgba(0,0,0,0.3);
             background: linear-gradient(135deg, #fff, #c4b5fd);
             background-clip: text;
             -webkit-background-clip: text;
@@ -337,27 +263,23 @@
 
         .bio {
             color: #ddd6fe;
-            font-size: 1.05rem;
+            font-size: 1rem;
             line-height: 1.5;
             max-width: 350px;
             margin: 0 auto;
             font-weight: 500;
-            background: rgba(0,0,0,0.3);
+            background: rgba(0,0,0,0.25);
             display: inline-block;
             padding: 6px 18px;
             border-radius: 60px;
-            backdrop-filter: blur(4px);
         }
 
-        .bio i {
-            color: #c084fc;
-            margin: 0 6px;
-        }
+        .bio i { color: #c084fc; margin: 0 6px; }
 
         .info-ai {
             text-align: center;
-            margin-bottom: 28px;
-            padding: 10px 16px;
+            margin-bottom: 24px;
+            padding: 0 8px;
         }
 
         .info-badge {
@@ -368,53 +290,35 @@
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            backdrop-filter: blur(8px);
-            transition: all 0.2s;
         }
 
-        .info-badge:hover {
-            border-color: #7c3aed;
-            background: rgba(124, 58, 237, 0.3);
-            transform: scale(1.02);
-        }
-
-        .info-badge i {
-            font-size: 1.1rem;
-            color: #c084fc;
-        }
+        .info-badge i { font-size: 1.1rem; color: #c084fc; }
 
         .info-badge span {
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             color: #c4b5fd;
             font-weight: 500;
             letter-spacing: 0.3px;
         }
 
         .date-menu {
-            background: rgba(26, 23, 40, 0.7);
-            backdrop-filter: blur(12px);
+            background: rgba(26, 23, 40, 0.6);
             border: 1px solid rgba(124, 58, 237, 0.5);
-            border-radius: 32px;
-            padding: 24px;
-            margin-bottom: 28px;
+            border-radius: 28px;
+            padding: 22px;
+            margin-bottom: 24px;
             text-align: center;
-            transition: all 0.2s;
-        }
-
-        .date-menu:hover {
-            border-color: #7c3aed;
-            background: rgba(26, 23, 40, 0.8);
         }
 
         .day-section {
-            margin-bottom: 20px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid rgba(124, 58, 237, 0.4);
+            margin-bottom: 18px;
+            padding-bottom: 18px;
+            border-bottom: 1px solid rgba(124, 58, 237, 0.35);
         }
 
         .day-label {
             color: #c084fc;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             text-transform: uppercase;
             letter-spacing: 3px;
             margin-bottom: 10px;
@@ -427,10 +331,9 @@
 
         .day-name {
             color: white;
-            font-size: 2.6rem;
+            font-size: clamp(1.9rem, 6vw, 2.5rem);
             font-weight: 800;
             line-height: 1.2;
-            text-shadow: 0 1px 3px black;
             letter-spacing: -0.5px;
         }
 
@@ -438,21 +341,21 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 20px;
+            gap: 18px;
+            flex-wrap: wrap;
         }
 
         .date-box {
             background: rgba(19, 17, 28, 0.8);
-            border-radius: 28px;
-            padding: 18px 20px;
-            min-width: 110px;
+            border-radius: 24px;
+            padding: 16px 20px;
+            min-width: 100px;
             border: 1px solid #3b2c5c;
-            backdrop-filter: blur(4px);
         }
 
         .date-number {
             color: #c084fc;
-            font-size: 2.3rem;
+            font-size: 2.1rem;
             font-weight: 800;
             line-height: 1;
             margin-bottom: 6px;
@@ -460,7 +363,7 @@
 
         .date-month {
             color: #cbd5e6;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             text-transform: uppercase;
             letter-spacing: 1.5px;
             font-weight: 500;
@@ -468,7 +371,7 @@
 
         .date-year {
             color: white;
-            font-size: 1.8rem;
+            font-size: 1.7rem;
             font-weight: 700;
             padding: 8px 18px;
             border-radius: 40px;
@@ -476,31 +379,20 @@
         }
 
         .web-section {
-            background: rgba(26, 23, 40, 0.65);
-            backdrop-filter: blur(12px);
+            background: rgba(26, 23, 40, 0.55);
             border: 1px solid rgba(124, 58, 237, 0.5);
-            border-radius: 32px;
-            padding: 24px 20px;
-            margin-bottom: 28px;
-            transition: all 0.2s;
-        }
-
-        .web-section:hover {
-            border-color: #7c3aed;
-            background: rgba(26, 23, 40, 0.8);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            border-radius: 28px;
+            padding: 22px;
+            margin-bottom: 20px;
         }
 
         .web-header {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
+            text-align: center;
             color: #c084fc;
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             text-transform: uppercase;
             letter-spacing: 2.5px;
-            margin-bottom: 20px;
+            margin-bottom: 18px;
             font-weight: 600;
         }
 
@@ -522,7 +414,7 @@
             font-weight: 600;
             color: white;
             cursor: pointer;
-            transition: all 0.25s ease;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
             box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
             text-decoration: none;
             width: 100%;
@@ -557,24 +449,20 @@
         }
 
         .web-btn:hover {
-            transform: translateX(5px);
-            background: linear-gradient(105deg, #8b5cf6, #c084fc);
+            transform: translateX(4px);
             box-shadow: 0 8px 20px rgba(124, 58, 237, 0.5);
         }
 
-        .web-btn:hover .btn-arrow {
-            transform: translateX(4px);
-            opacity: 1;
-        }
+        .web-btn:hover .btn-arrow { transform: translateX(4px); opacity: 1; }
 
         .loading-links {
             text-align: center;
-            padding: 30px;
+            padding: 26px;
             color: #b9b0d4;
         }
 
         .loading-links i {
-            font-size: 2rem;
+            font-size: 1.8rem;
             margin-bottom: 10px;
             display: block;
         }
@@ -599,7 +487,7 @@
         .footer {
             display: flex;
             justify-content: center;
-            margin-top: 8px;
+            margin-top: 4px;
             padding-top: 10px;
             border-top: 1px solid rgba(124, 58, 237, 0.4);
         }
@@ -614,9 +502,8 @@
             background: rgba(0,0,0,0.3);
             padding: 8px 22px;
             border-radius: 40px;
-            transition: all 0.2s;
+            transition: transform 0.2s, background 0.2s, border-color 0.2s;
             font-weight: 500;
-            backdrop-filter: blur(8px);
             border: 1px solid #4a3a7a;
         }
 
@@ -625,17 +512,19 @@
             background: #7c3aedcc;
             border-color: #c084fc;
             transform: translateY(-2px);
-            gap: 14px;
         }
 
-        @media (max-width: 520px) {
-            .profile-card { padding: 24px 18px; }
+        @media (prefers-reduced-motion: reduce) {
+            .stars-smooth { animation: none; }
+        }
+
+        @media (max-width: 420px) {
             .name { font-size: 1.9rem; }
-            .bio { font-size: 0.9rem; }
-            .profile-photo { width: 95px; height: 95px; }
+            .bio { font-size: 0.88rem; }
+            .profile-photo { width: 90px; height: 90px; }
             .day-name { font-size: 2rem; }
-            .date-number { font-size: 1.8rem; }
-            .date-year { font-size: 1.3rem; padding: 5px 12px; }
+            .date-number { font-size: 1.7rem; }
+            .date-year { font-size: 1.25rem; padding: 5px 12px; }
             .date-box { padding: 12px 14px; min-width: 85px; }
             .web-btn { padding: 12px 16px; font-size: 0.9rem; }
             .web-btn .btn-left span { font-size: 0.85rem; white-space: normal; word-break: break-word; }
@@ -645,25 +534,19 @@
 
         video::-webkit-media-controls { display: none !important; }
         video { pointer-events: none; }
-        .video-section video { pointer-events: none; }
     </style>
 </head>
 <body>
 
-    <!-- ========== BACKGROUND SUPER SMOOTH ========== -->
-    <div class="custom-bg">
-        <div class="aurora"></div>
-        <div class="smooth-ring"></div>
-        <div class="smooth-ring-2"></div>
-        <div class="stars-smooth" id="starsSmooth"></div>
-    </div>
-    <div class="bg-overlay"></div>
+    <div class="custom-bg"></div>
+    <div class="stars-smooth"></div>
+    <div class="smooth-ring"></div>
 
     <div class="container">
         <div class="profile-card">
             <!-- VIDEO SECTION -->
             <div class="video-section" id="videoSection">
-                <video id="profileVideo" loop playsinline preload="auto">
+                <video id="profileVideo" loop playsinline preload="metadata">
                     <source src="https://files.catbox.moe/lwuo2r.mp4" type="video/mp4">
                 </video>
                 <div class="video-overlay">
@@ -682,8 +565,9 @@
             <!-- PROFILE PHOTO -->
             <div class="profile-photo-wrapper">
                 <div class="profile-photo">
-                    <img src="https://raw.githubusercontent.com/Zryx1/TesHtmlZeff/refs/heads/main/IMG_20260214_125718.jpg" 
+                    <img src="https://raw.githubusercontent.com/Zryx1/TesHtmlZeff/refs/heads/main/IMG_20260214_125718.jpg"
                          alt="Zeff Profile"
+                         loading="lazy"
                          onerror="this.src='https://placehold.co/400x400/2d1b4e/white?text=ZEFF'">
                 </div>
             </div>
@@ -691,7 +575,7 @@
             <div class="profile-info">
                 <h1 class="name">𝐙𝐄𝐅𝐅</h1>
                 <p class="bio">
-                    <i class="fas fa-star"></i> 
+                    <i class="fas fa-star"></i>
                     𝙿𝚛𝚘𝚓𝚎𝚌𝚝 𝙱𝚢 𝚉𝚎𝚏𝚏
                     <i class="fas fa-star"></i>
                 </p>
@@ -746,27 +630,6 @@
     </div>
 
     <script>
-        // ========== MEMBUAT BINTANG (SMOOTH, TIDAK BERAT) ==========
-        function createStarsSmooth() {
-            const container = document.getElementById('starsSmooth');
-            if (!container) return;
-            
-            for (let i = 0; i < 100; i++) {
-                const star = document.createElement('div');
-                star.className = 'star-smooth';
-                const size = Math.random() * 2 + 1;
-                star.style.width = size + 'px';
-                star.style.height = size + 'px';
-                star.style.left = Math.random() * 100 + '%';
-                star.style.top = Math.random() * 100 + '%';
-                star.style.animationDelay = Math.random() * 4 + 's';
-                star.style.animationDuration = (Math.random() * 3 + 2) + 's';
-                container.appendChild(star);
-            }
-        }
-        
-        createStarsSmooth();
-
         // ========== VIDEO PREVIEW CONTROL ==========
         const video = document.getElementById('profileVideo');
         const videoSection = document.getElementById('videoSection');
@@ -776,13 +639,10 @@
         const soundText = document.getElementById('soundText');
         const mutedIndicator = document.getElementById('mutedIndicator');
 
-        video.muted = false;
-        video.removeAttribute('muted');
-
         const autoPlayPreview = () => {
             video.play().then(() => {
                 playIcon.className = 'fas fa-pause';
-            }).catch((err) => {
+            }).catch(() => {
                 video.muted = true;
                 video.play().then(() => {
                     playIcon.className = 'fas fa-pause';
@@ -792,14 +652,14 @@
                 }).catch(() => {});
             });
         };
-        
+
         autoPlayPreview();
 
         function enableSound() {
             video.muted = false;
             soundIcon.className = 'fas fa-volume-up';
             soundText.textContent = 'Suara Aktif';
-            if (mutedIndicator) mutedIndicator.style.display = 'none';
+            mutedIndicator.style.display = 'none';
             soundBtn.style.background = '#7c3aed';
             soundBtn.style.borderColor = '#c084fc';
             soundBtn.style.color = 'white';
@@ -810,8 +670,8 @@
             video.muted = true;
             soundIcon.className = 'fas fa-volume-mute';
             soundText.textContent = 'Aktifkan Suara';
-            if (mutedIndicator) mutedIndicator.style.display = 'flex';
-            soundBtn.style.background = 'rgba(0, 0, 0, 0.7)';
+            mutedIndicator.style.display = 'flex';
+            soundBtn.style.background = 'rgba(0, 0, 0, 0.65)';
             soundBtn.style.borderColor = 'rgba(124, 58, 237, 0.6)';
             soundBtn.style.color = '#c4b5fd';
             localStorage.setItem('videoSoundEnabled', 'false');
@@ -819,23 +679,14 @@
 
         soundBtn.addEventListener('click', (e) => {
             e.stopPropagation();
-            if (video.muted) {
-                enableSound();
-            } else {
-                disableSound();
-            }
+            video.muted ? enableSound() : disableSound();
         });
 
         const savedSoundSetting = localStorage.getItem('videoSoundEnabled');
-        if (savedSoundSetting === 'false') {
-            disableSound();
-        } else {
-            enableSound();
-        }
+        savedSoundSetting === 'false' ? disableSound() : enableSound();
 
         videoSection.addEventListener('click', (e) => {
             if (e.target.closest('.sound-btn')) return;
-            e.stopPropagation();
             if (video.paused) {
                 video.play();
                 playIcon.className = 'fas fa-pause';
@@ -850,20 +701,20 @@
             video.play();
         });
 
-        // ========== UPDATE TANGGAL ==========
+        // ========== UPDATE TANGGAL (setiap menit cukup, lebih ringan) ==========
         function updateDateTime() {
             const now = new Date();
             const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
             const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
                             'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-            
+
             document.getElementById('dayName').textContent = days[now.getDay()];
             document.getElementById('dateNumber').textContent = now.getDate().toString().padStart(2, '0');
             document.getElementById('dateMonth').textContent = months[now.getMonth()];
             document.getElementById('dateYear').textContent = now.getFullYear();
         }
         updateDateTime();
-        setInterval(updateDateTime, 1000);
+        setInterval(updateDateTime, 60000);
 
         // ========== MEMBACA data.txt DENGAN FORMAT NAMA|URL ==========
         async function loadLinks() {
@@ -872,25 +723,21 @@
                 const timestamp = new Date().getTime();
                 const response = await fetch(`data.txt?t=${timestamp}`);
                 if (!response.ok) throw new Error('File data.txt tidak ditemukan');
-                
+
                 const text = await response.text();
                 const lines = text.split(/\r?\n/);
                 const links = [];
-                
+
                 for (let line of lines) {
                     line = line.trim();
                     if (line === '' || line.startsWith('#')) continue;
-                    
-                    // Format: Nama Tombol|URL
+
                     const separatorIndex = line.indexOf('|');
-                    if (separatorIndex === -1) {
-                        console.warn(`Baris tidak valid (harus format Nama|URL): ${line}`);
-                        continue;
-                    }
-                    
+                    if (separatorIndex === -1) continue;
+
                     const name = line.substring(0, separatorIndex).trim();
                     let url = line.substring(separatorIndex + 1).trim();
-                    
+
                     if (name && url) {
                         if (!url.startsWith('http://') && !url.startsWith('https://')) {
                             url = 'https://' + url;
@@ -898,7 +745,7 @@
                         links.push({ name, url });
                     }
                 }
-                
+
                 if (links.length === 0) {
                     container.innerHTML = `
                         <div class="error-links">
@@ -910,27 +757,26 @@
                     `;
                     return;
                 }
-                
-                const icons = ['fa-globe', 'fa-code', 'fa-window-maximize', 'fa-browser', 'fa-laptop-code', 
-                              'fa-file-code', 'fa-server', 'fa-cloud', 'fa-rocket', 'fa-star', 
+
+                const icons = ['fa-globe', 'fa-code', 'fa-window-maximize', 'fa-laptop-code',
+                              'fa-file-code', 'fa-server', 'fa-cloud', 'fa-rocket', 'fa-star',
                               'fa-fire', 'fa-crown', 'fa-gem', 'fa-infinity'];
-                
-                container.innerHTML = '';
-                
+
+                const frag = document.createDocumentFragment();
+
                 links.forEach((link, index) => {
-                    // Pilih icon berdasarkan nama (biar lebih keren)
-                    let iconClass = icons[index % icons.length];
+                    let iconClass = 'fas ' + icons[index % icons.length];
                     const lowerName = link.name.toLowerCase();
-                    if (lowerName.includes('youtube') || lowerName.includes('yt')) iconClass = 'fa-youtube';
-                    else if (lowerName.includes('instagram') || lowerName.includes('ig')) iconClass = 'fa-instagram';
-                    else if (lowerName.includes('tiktok')) iconClass = 'fa-tiktok';
-                    else if (lowerName.includes('twitter')) iconClass = 'fa-twitter';
-                    else if (lowerName.includes('facebook')) iconClass = 'fa-facebook';
-                    else if (lowerName.includes('whatsapp')) iconClass = 'fa-whatsapp';
-                    else if (lowerName.includes('telegram')) iconClass = 'fa-telegram';
-                    else if (lowerName.includes('github')) iconClass = 'fa-github';
-                    else if (lowerName.includes('spotify')) iconClass = 'fa-spotify';
-                    
+                    if (lowerName.includes('youtube') || lowerName.includes('yt')) iconClass = 'fab fa-youtube';
+                    else if (lowerName.includes('instagram') || lowerName.includes('ig')) iconClass = 'fab fa-instagram';
+                    else if (lowerName.includes('tiktok')) iconClass = 'fab fa-tiktok';
+                    else if (lowerName.includes('twitter')) iconClass = 'fab fa-twitter';
+                    else if (lowerName.includes('facebook')) iconClass = 'fab fa-facebook';
+                    else if (lowerName.includes('whatsapp')) iconClass = 'fab fa-whatsapp';
+                    else if (lowerName.includes('telegram')) iconClass = 'fab fa-telegram';
+                    else if (lowerName.includes('github')) iconClass = 'fab fa-github';
+                    else if (lowerName.includes('spotify')) iconClass = 'fab fa-spotify';
+
                     const button = document.createElement('a');
                     button.href = link.url;
                     button.target = '_blank';
@@ -938,20 +784,20 @@
                     button.className = 'web-btn';
                     button.innerHTML = `
                         <div class="btn-left">
-                            <i class="fab ${iconClass}"></i>
+                            <i class="${iconClass}"></i>
                             <span>${escapeHtml(link.name)}</span>
                         </div>
                         <div class="btn-arrow">
                             <i class="fas fa-arrow-right"></i>
                         </div>
                     `;
-                    container.appendChild(button);
+                    frag.appendChild(button);
                 });
-                
-                console.log(`Berhasil memuat ${links.length} link dari data.txt`);
-                
+
+                container.innerHTML = '';
+                container.appendChild(frag);
+
             } catch (error) {
-                console.error('Gagal memuat data.txt:', error);
                 container.innerHTML = `
                     <div class="error-links">
                         <i class="fas fa-file-alt"></i>
@@ -962,7 +808,7 @@
                 `;
             }
         }
-        
+
         function escapeHtml(str) {
             return str.replace(/[&<>]/g, function(m) {
                 if (m === '&') return '&amp;';
@@ -971,9 +817,9 @@
                 return m;
             });
         }
-        
+
         loadLinks();
-        setInterval(loadLinks, 30000);
+        setInterval(loadLinks, 60000);
     </script>
 </body>
 </html>
